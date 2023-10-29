@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.header-container, .footer-container {
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+button {
+    border: none;
+    background-color: transparent;
+}
+
+mat-icon {
+    font-size: 24px;
+    vertical-align: middle;
+}

@@ -1,0 +1,28 @@
+<div *ngIf="!isLoading; else loadingTemplate">
+    <div *ngIf="dayWeather">
+        <h2>Weather in {{ cityWeather?.resolvedAddress }}</h2>
+        <div class="weather-info">
+            <div>
+                <strong>Date:</strong> {{ dayWeather.datetime | date }}
+            </div>
+            <div>
+                <strong>Temperature:</strong> {{ dayWeather.temp }}°C
+            </div>
+            <div>
+                <strong>Humidity:</strong> {{ dayWeather.humidity }}%
+            </div>
+            <div>
+                <strong>Wind:</strong> {{ dayWeather.windSpeed }} km/h
+            </div>
+            <button mat-button (click)="goBack()">Go Back</button>
+            <button mat-button (click)="navigateToWeatherInfo()">Go To Weather</button>
+        </div>
+    </div>
+    <div *ngIf="!dayWeather">
+        No weather data found for the selected date.
+    </div>
+</div>
+
+<ng-template #loadingTemplate>
+    <div>Loading...</div> 
+</ng-template> 

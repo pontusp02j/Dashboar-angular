@@ -1,0 +1,59 @@
+<h3>Weather List</h3>
+
+<mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Filter by Date or Country</mat-label>
+    <input 
+        matInput 
+        type="text" 
+        [(ngModel)]="filterText" 
+        placeholder="Filter by Date or Country..." 
+        (input)="filterWeather()">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+
+<!-- Displaying loader outside the table -->
+<div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<mat-table *ngIf="!isLoading" [dataSource]="filteredWeatherData">
+
+    <!-- Date Column --> 
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.day?.datetime | date }} </mat-cell>
+    </ng-container>
+    
+    <!-- Temperature Column -->
+    <ng-container matColumnDef="temperature">
+        <mat-header-cell *matHeaderCellDef> Temperature </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.day?.temp }}°C </mat-cell>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.day?.description }} </mat-cell>
+    </ng-container>
+
+    <!-- Country Column -->
+    <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
+        <mat-cell *matCellDef="let entry"> {{ entry.country }} </mat-cell>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+        <mat-cell *matCellDef="let entry">
+            <button mat-button (click)="navigateToDetails(entry.day?.datetime, entry.country)">View Details</button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['date', 'temperature', 'description', 'country', 'details']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['date', 'temperature', 'description', 'country', 'details'];"></mat-row>
+
+</mat-table>
+
+<mat-paginator [length]="totalWeatherData" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)">
+</mat-paginator>

@@ -1,0 +1,21 @@
+<div *ngIf="user" class="profile-card">
+    <div class="user-avatar">
+        <img src="https://www.thetonyrobbinsfoundation.org/wp-content/uploads/2017/09/Cool-avatars-anonymous-avatar-300x300.jpg" alt="Avatar">
+    </div>
+
+    <h2>{{ user.name }}</h2>
+
+    <div class="contact-info">
+        <h3>Contact</h3>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+        <p><strong>Website:</strong> <a href="{{ user.website }}" target="_blank">{{ user.website }}</a></p>
+    </div>
+
+    <div class="company-info">
+        <h3>{{ user.company.name }}</h3>
+        <p><strong>Catchphrase:</strong> {{ user.company.catchPhrase }}</p>
+        <p><strong>Business Strategy:</strong> {{ user.company.bs }}</p>
+    </div>
+    <a [routerLink]="['/users/details', user.id]">View Profile Card</a>
+</div>

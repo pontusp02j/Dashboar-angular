@@ -1,0 +1,50 @@
+<mat-card class="weather-card">
+    <mat-card-header>
+        <mat-card-title>Weather Data for {{weatherData?.resolvedAddress}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="getWeatherIcon(weatherData?.description)" alt="Weather Icon">
+    <mat-card-content>
+        <p>{{weatherData?.description}}</p>
+        <div class="weather-info">
+            <div>
+                <strong>Latitude:</strong> {{ weatherData?.latitude }}
+            </div>
+            <div>
+                <strong>Longitude:</strong> {{ weatherData?.longitude }}
+            </div>
+            <div>
+                <strong>Timezone Offset:</strong> {{ weatherData?.tzoffset }}
+            </div>
+        </div>
+
+        <!-- Table for Weather Days -->
+        <mat-table [dataSource]="weatherData?.days || []">
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let day"> {{ day.datetime | date }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="temp">
+                <mat-header-cell *matHeaderCellDef> Temperature </mat-header-cell>
+                <mat-cell *matCellDef="let day"> {{ day.temp }}°C </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="humidity">
+                <mat-header-cell *matHeaderCellDef> Humidity </mat-header-cell>
+                <mat-cell *matCellDef="let day"> {{ day.humidity }}% </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="windSpeed">
+                <mat-header-cell *matHeaderCellDef> Wind Speed </mat-header-cell>
+                <mat-cell *matCellDef="let day"> {{ day.windSpeed }} km/h </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="['date', 'temp', 'humidity', 'windSpeed']"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ['date', 'temp', 'humidity', 'windSpeed'];"></mat-row>
+        </mat-table>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button (click)="goBack()">Go Back</button>
+    </mat-card-actions>
+</mat-card>
